@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand identity: black + white + blue. Every value below is the exact
+       HSL equivalent of the hex spec — see the design-system task — so
+       components only ever reference the semantic token, never a hex. */
+    --background: 210 40% 98%; /* #F8FAFC */
+    --foreground: 223 47% 11%; /* #0F172A — primary text */
+
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 223 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 223 47% 11%;
+
+    --primary: 221 83% 53%; /* #2563EB */
+    --primary-hover: 224 76% 48%; /* #1D4ED8 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 13% 95%;
+    --secondary-foreground: 223 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%; /* #64748B */
+
+    --accent: 214 100% 97%; /* #EFF6FF — light blue */
+    --accent-foreground: 223 47% 11%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 29%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%; /* #E5E7EB */
+    --input: 220 13% 91%;
+    --ring: 221 83% 53%;
+
+    /* Black surfaces (footers, CTA bands, the "Dark" button variant) —
+       #111111 is deliberately the lighter of the two, so it doubles as the
+       hover/active step up from #0A0A0A, mirroring primary/primary-hover. */
+    --ink: 0 0% 4%; /* #0A0A0A */
+    --ink-dark: 0 0% 7%; /* #111111 */
+    --ink-foreground: 0 0% 100%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222 25% 8%;
+    --foreground: 210 20% 96%;
+
+    --card: 222 22% 11%;
+    --card-foreground: 210 20% 96%;
+
+    --popover: 222 22% 11%;
+    --popover-foreground: 210 20% 96%;
+
+    --primary: 173 65% 42%;
+    --primary-foreground: 222 25% 8%;
+
+    --secondary: 222 18% 16%;
+    --secondary-foreground: 210 20% 96%;
+
+    --muted: 222 18% 16%;
+    --muted-foreground: 215 14% 65%;
+
+    --accent: 222 18% 16%;
+    --accent-foreground: 210 20% 96%;
+
+    --destructive: 0 63% 48%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 60% 42%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 222 16% 20%;
+    --input: 222 16% 20%;
+    --ring: 173 65% 42%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  h1 {
+    @apply text-4xl font-bold tracking-tight text-foreground sm:text-5xl;
+  }
+  h2 {
+    @apply text-3xl font-semibold tracking-tight text-foreground;
+  }
+  h3 {
+    @apply text-xl font-semibold tracking-tight text-foreground;
+  }
+  p {
+    @apply text-base leading-relaxed text-foreground;
+  }
+  small {
+    @apply text-sm leading-normal text-muted-foreground;
+  }
+  label {
+    @apply text-sm font-medium leading-none text-foreground;
+  }
+}
+
+@layer components {
+  /* The one non-tag typography role: labels for order numbers, dates,
+     SKUs, etc. — small, quiet, and never mistaken for body copy. */
+  .text-meta {
+    @apply text-xs font-medium uppercase tracking-wide text-muted-foreground;
+  }
+}
