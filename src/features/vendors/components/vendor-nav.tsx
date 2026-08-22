@@ -16,7 +16,9 @@ const LINKS = [
 ];
 
 export function VendorNav() {
-  const pathname = usePathname();
+  // Can be null during static generation (no real request to derive a path
+  // from) — see footer.tsx for the fuller explanation of when this bites.
+  const pathname = usePathname() ?? '';
   const { data: conversations } = useVendorConversations();
   const unreadCount = conversations?.reduce((sum, c) => sum + c.unreadCount, 0) ?? 0;
 

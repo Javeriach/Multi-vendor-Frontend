@@ -17,7 +17,9 @@ export function ChatWithSellerButton({
   className?: string;
 }) {
   const router = useRouter();
-  const pathname = usePathname();
+  // Can be null during static generation — falls back to the product page
+  // itself never being blank/"null" in the post-login redirect target.
+  const pathname = usePathname() ?? '/products';
   const { isAuthenticated } = useCurrentUser();
   const createConversation = useCreateConversation();
 

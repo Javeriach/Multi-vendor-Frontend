@@ -15,7 +15,13 @@ import { SITE_NAME } from '@/lib/constants';
 const HIDDEN_ON = ['/messages', '/vendor/messages'];
 
 export function Footer() {
-  const pathname = usePathname();
+  // usePathname()'s own type is `string | null` — it returns null during
+  // static generation (`next build` prerendering pages with no real
+  // incoming request to derive a path from), which is a genuinely
+  // different code path than dev/runtime SSR and was never exercised by
+  // testing against `next dev` alone. `?? ''` keeps the check below from
+  // calling .startsWith() on null and crashing the entire build.
+  const pathname = usePathname() ?? '';
   if (HIDDEN_ON.some((path) => pathname === path || pathname.startsWith(`${path}/`))) {
     return null;
   }
