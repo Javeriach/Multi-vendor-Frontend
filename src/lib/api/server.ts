@@ -53,11 +53,19 @@ async function rawServerFetch<T>(
   }
 
   const isJson = response.headers.get('content-type')?.includes('application/json');
-  const data = isJson ? await response.json().catch(() => null) : null;
 
   if (!response.ok) {
+    const data = isJson ? await response.json().catch(() => null) : null;
     throw new ApiError(response.status, data, response.statusText);
   }
 
-  return data as T;
+  if (!isJson) {
+    // A 200 with a non-JSON body (an HTML challenge/redirect page from an
+    // auth wall or proxy in front of the API, for example) is not a usable
+    // success — treating it as one silently resolves callers to `null`,
+    // bypassing their `.catch()` fallbacks entirely.
+    throw new ApiError(response.status, null, 'Expected JSON response but received a different content type');
+  }
+
+  return (await response.json()) as T;
 }

@@ -35,11 +35,15 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
   }
 
   const isJson = response.headers.get('content-type')?.includes('application/json');
-  const data = isJson ? await response.json().catch(() => null) : null;
 
   if (!response.ok) {
+    const data = isJson ? await response.json().catch(() => null) : null;
     throw new ApiError(response.status, data, response.statusText);
   }
 
-  return data as T;
+  if (!isJson) {
+    throw new ApiError(response.status, null, 'Expected JSON response but received a different content type');
+  }
+
+  return (await response.json()) as T;
 }
