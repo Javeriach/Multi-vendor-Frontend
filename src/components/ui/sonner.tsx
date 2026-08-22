@@ -1,21 +1,29 @@
 'use client';
 
-import { Toaster as Sonner } from 'sonner';
+import { Toaster as HotToaster, ToasterProps as HotToasterProps } from 'react-hot-toast';
 
-type ToasterProps = React.ComponentProps<typeof Sonner>;
-
-const Toaster = ({ ...props }: ToasterProps) => {
+/**
+ * Filename kept as sonner.tsx (not renamed) — every consumer imports the
+ * `Toaster` symbol from '@/components/ui/sonner', and renaming the file
+ * would be a no-op churn across the app for zero behavioral benefit.
+ */
+const Toaster = (props: HotToasterProps) => {
   return (
-    <Sonner
-      theme="light"
-      className="toaster group"
+    <HotToaster
+      position="top-center"
       toastOptions={{
-        classNames: {
-          toast:
-            'group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',
-          description: 'group-[.toast]:text-muted-foreground',
-          actionButton: 'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
-          cancelButton: 'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
+        duration: 4000,
+        className: 'border shadow-lg',
+        style: {
+          background: 'hsl(var(--background))',
+          color: 'hsl(var(--foreground))',
+          border: '1px solid hsl(var(--border))',
+        },
+        success: {
+          iconTheme: { primary: 'hsl(var(--success))', secondary: 'hsl(var(--success-foreground))' },
+        },
+        error: {
+          iconTheme: { primary: 'hsl(var(--destructive))', secondary: 'hsl(var(--destructive-foreground))' },
         },
       }}
       {...props}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { Toaster } from '@/components/ui/sonner';
+import { ChatSocketProvider } from '@/features/chat/components/chat-socket-provider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -21,8 +22,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
-      <Toaster position="top-center" richColors closeButton />
+      <ChatSocketProvider>{children}</ChatSocketProvider>
+      <Toaster />
     </QueryClientProvider>
   );
 }

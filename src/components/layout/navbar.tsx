@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Suspense, useState } from 'react';
-import { Heart, LogOut, Menu, Package, Search, Settings, ShoppingCart, Store, User as UserIcon, Users } from 'lucide-react';
+import { Heart, LogOut, Menu, MessageCircle, Package, Search, Settings, ShoppingCart, Store, User as UserIcon, Users } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -20,6 +20,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useCurrentUser } from '@/features/auth/hooks/use-current-user';
 import { useLogout } from '@/features/auth/hooks/use-auth-mutations';
 import { useCart } from '@/features/cart/hooks/use-cart';
+import { useUnreadCount } from '@/features/chat/hooks/use-conversations';
 import { useWishlist } from '@/features/wishlist/hooks/use-wishlist';
 import { useCategories } from '@/features/categories/hooks/use-categories';
 import { SearchBar } from '@/components/shared/search-bar';
@@ -39,6 +40,7 @@ export function Navbar() {
   const { user, isAuthenticated } = useCurrentUser();
   const { data: cart } = useCart();
   const { data: wishlist } = useWishlist();
+  const { data: unreadCount } = useUnreadCount();
   const { data: categories } = useCategories();
   const logout = useLogout();
   const router = useRouter();
@@ -112,6 +114,20 @@ export function Navbar() {
               <Search className="h-5 w-5" />
             </Link>
           </Button>
+
+          {isAuthenticated && (
+            <Button variant="ghost" size="icon" asChild className="relative" aria-label={`Messages (${unreadCount ?? 0} unread)`}>
+              {/* Vendors' unread messages can live in their VENDOR inbox
+                  (customers messaging their store) — sending them to the
+                  buyer inbox at /messages would show "no conversations"
+                  even with unread messages waiting, since a vendor is
+                  rarely also the buyer in any thread. */}
+              <Link href={user?.role === 'vendor' ? '/vendor/messages' : '/messages'}>
+                <MessageCircle className="h-5 w-5" />
+                <IconLinkBadge count={unreadCount ?? 0} />
+              </Link>
+            </Button>
+          )}
 
           <Button variant="ghost" size="icon" asChild className="relative" aria-label={`Wishlist (${wishlistCount} items)`}>
             <Link href="/wishlist">

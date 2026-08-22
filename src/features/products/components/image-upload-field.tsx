@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { Control, FieldValues, Path } from 'react-hook-form';
 import { ImagePlus, Loader2, X } from 'lucide-react';
-import { toast } from 'sonner';
+import toast from 'react-hot-toast';
 
 import { FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useUploadImage } from '../hooks/use-upload-image';

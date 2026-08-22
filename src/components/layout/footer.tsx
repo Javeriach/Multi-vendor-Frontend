@@ -1,8 +1,25 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { SITE_NAME } from '@/lib/constants';
 
+/** Chat pages size themselves to fill the viewport below the navbar
+ * (see ChatLayout's heightClassName) — a marketing footer competing for
+ * space below that box is what was pushing the whole page taller than the
+ * viewport and forcing page-level scroll, defeating the fixed-height
+ * WhatsApp-style chat layout entirely regardless of how well the chat box
+ * itself was contained. An immersive chat screen doesn't want a footer
+ * anyway, same reasoning WhatsApp/Slack/etc. don't have one. */
+const HIDDEN_ON = ['/messages', '/vendor/messages'];
+
 export function Footer() {
+  const pathname = usePathname();
+  if (HIDDEN_ON.some((path) => pathname === path || pathname.startsWith(`${path}/`))) {
+    return null;
+  }
+
   return (
     <footer className="mt-16 border-t bg-muted/30">
       <div className="container grid gap-8 py-10 sm:grid-cols-2 md:grid-cols-4">

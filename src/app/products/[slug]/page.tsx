@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 
 import { Separator } from '@/components/ui/separator';
 import { RatingStars } from '@/components/shared/rating-stars';
+import { ChatWithSellerButton } from '@/features/chat/components/chat-with-seller-button';
 import { productsServerApi } from '@/features/products/api/products.server-api';
 import { ProductGallery } from '@/features/products/components/product-gallery';
 import { ProductVariantSelector } from '@/features/products/components/product-variant-selector';
@@ -66,7 +67,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           <ProductVariantSelector product={product} slug={slug} />
 
-          <WishlistButton productId={product.id} className="w-full" />
+          <div className="flex gap-2">
+            <WishlistButton productId={product.id} className="flex-1" />
+            <ChatWithSellerButton storeId={product.store.id} productId={product.id} className="flex-1" />
+          </div>
 
           {product.description && (
             <>
