@@ -24,7 +24,7 @@ import { useUnreadCount } from '@/features/chat/hooks/use-conversations';
 import { useWishlist } from '@/features/wishlist/hooks/use-wishlist';
 import { useCategories } from '@/features/categories/hooks/use-categories';
 import { SearchBar } from '@/components/shared/search-bar';
-import { SITE_NAME } from '@/lib/constants';
+import { Logo } from '@/components/layout/logo';
 import { cn } from '@/lib/utils';
 
 function IconLinkBadge({ count }: { count: number }) {
@@ -82,9 +82,8 @@ export function Navbar() {
           </SheetContent>
         </Sheet>
 
-        <Link href="/" className="mr-2 flex shrink-0 items-center gap-2 text-lg font-bold tracking-tight">
-          <Store className="h-5 w-5 text-primary" aria-hidden="true" />
-          {SITE_NAME}
+        <Link href="/" className="mr-2 shrink-0">
+          <Logo />
         </Link>
 
         {/* min-w-0 lets this flex item actually shrink below its content
