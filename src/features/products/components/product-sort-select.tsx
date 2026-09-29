@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ProductSort } from '@/types/catalog';
 
@@ -25,17 +26,20 @@ export function ProductSortSelect() {
   };
 
   return (
-    <Select value={current} onValueChange={onChange}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Sort by" />
-      </SelectTrigger>
-      <SelectContent>
-        {OPTIONS.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="w-full space-y-2 sm:w-[180px]">
+      <Label className="text-xs uppercase tracking-wide text-muted-foreground">Sort by</Label>
+      <Select value={current} onValueChange={onChange}>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="Sort by" />
+        </SelectTrigger>
+        <SelectContent>
+          {OPTIONS.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 }

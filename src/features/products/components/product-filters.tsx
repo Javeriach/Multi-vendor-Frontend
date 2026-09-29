@@ -23,9 +23,7 @@ export function ProductFilters({ categories }: { categories: Category[] }) {
     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
         <CategoryFilter categories={categories} />
-        <div className="w-full sm:w-[220px]">
-          <PriceRangeFilter />
-        </div>
+        <PriceRangeFilter />
         {hasFilters && (
           <Button variant="ghost" size="sm" onClick={clear} className="gap-1 text-muted-foreground">
             <X className="h-3.5 w-3.5" />

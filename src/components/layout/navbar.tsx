@@ -82,20 +82,31 @@ export function Navbar() {
           </SheetContent>
         </Sheet>
 
-        <Link href="/" className="mr-2 flex items-center gap-2 text-lg font-bold tracking-tight">
+        <Link href="/" className="mr-2 flex shrink-0 items-center gap-2 text-lg font-bold tracking-tight">
           <Store className="h-5 w-5 text-primary" aria-hidden="true" />
           {SITE_NAME}
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
-          <Link href="/products" className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground">
+        {/* min-w-0 lets this flex item actually shrink below its content
+            width (the flex default is min-width:auto, which would instead
+            force links to wrap onto a second line and spill out of the
+            fixed-height sticky header). overflow-x-auto turns any leftover
+            squeeze into a horizontal scroll instead. */}
+        <nav
+          className="hidden min-w-0 items-center gap-1 overflow-x-auto md:flex [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          aria-label="Primary navigation"
+        >
+          <Link
+            href="/products"
+            className="shrink-0 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
+          >
             All Products
           </Link>
           {categories?.slice(0, 5).map((category) => (
             <Link
               key={category.id}
               href={`/categories/${category.slug}`}
-              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
+              className="shrink-0 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
             >
               {category.name}
             </Link>

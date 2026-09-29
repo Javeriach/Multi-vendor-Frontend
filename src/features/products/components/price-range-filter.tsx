@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -25,7 +26,7 @@ export function PriceRangeFilter() {
   };
 
   return (
-    <form onSubmit={apply} className="space-y-2">
+    <form onSubmit={apply} className="w-full space-y-2 sm:w-[240px]">
       <Label className="text-xs uppercase tracking-wide text-muted-foreground">Price</Label>
       <div className="flex items-center gap-2">
         <Input
@@ -34,23 +35,21 @@ export function PriceRangeFilter() {
           placeholder="Min"
           value={min}
           onChange={(e) => setMin(e.target.value)}
-          className="h-8"
           aria-label="Minimum price"
         />
-        <span className="text-muted-foreground">–</span>
+        <span className="shrink-0 text-muted-foreground">–</span>
         <Input
           type="number"
           min={0}
           placeholder="Max"
           value={max}
           onChange={(e) => setMax(e.target.value)}
-          className="h-8"
           aria-label="Maximum price"
         />
+        <Button type="submit" size="icon" variant="outline" className="shrink-0" aria-label="Apply price filter">
+          <ArrowRight className="h-4 w-4" />
+        </Button>
       </div>
-      <Button type="submit" size="sm" variant="outline" className="w-full">
-        Apply
-      </Button>
     </form>
   );
 }

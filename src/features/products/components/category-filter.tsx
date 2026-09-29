@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Category } from '@/types/catalog';
 
@@ -19,18 +20,21 @@ export function CategoryFilter({ categories }: { categories: Category[] }) {
   };
 
   return (
-    <Select value={current} onValueChange={onChange}>
-      <SelectTrigger className="w-full sm:w-[200px]">
-        <SelectValue placeholder="Category" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="all">All Categories</SelectItem>
-        {categories.map((category) => (
-          <SelectItem key={category.id} value={category.id}>
-            {category.name}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="w-full space-y-2 sm:w-[200px]">
+      <Label className="text-xs uppercase tracking-wide text-muted-foreground">Category</Label>
+      <Select value={current} onValueChange={onChange}>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="Category" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All Categories</SelectItem>
+          {categories.map((category) => (
+            <SelectItem key={category.id} value={category.id}>
+              {category.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 }
